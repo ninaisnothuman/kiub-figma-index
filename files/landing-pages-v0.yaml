@@ -1,0 +1,123 @@
+file_id: kVmBqpundCARPzp3g6KJIN
+file_name: Landing pages v0
+title: "Kiub Marketing Site — landing pages"
+url: https://www.figma.com/design/kVmBqpundCARPzp3g6KJIN/Landing-pages-v0
+purpose: >
+  Marketing landing pages, hero sections, FAQs, waiting-list announcements,
+  and onboarding promo for Kiub. Desktop and mobile.
+surface: [marketing-site]
+platforms: [desktop, mobile]
+themes: [light]
+audience: [marketing, design, growth]
+status: active
+owner: francis
+last_updated: "2026-04-09"
+not_in_file:
+  - "In-app product UI → see 'v0'"
+  - "Store-listing / promo cover images → see 'Cover images'"
+  - "Old marketing experiments → see 'Kiub (Archive)' project"
+tags:
+  - landing-page
+  - marketing
+  - hero
+  - waiting-list
+  - early-access
+  - faq
+  - lifetime-deal
+  - ltd
+  - announcement
+  - magazine-post
+  - browser-history-pitch
+  - onboarding-promo
+
+pages:
+
+  - page_id: "1125:1275"
+    name: "Playground"
+    purpose: "Magazine post and Medium-style example reference page used as inspiration."
+    covers: [magazine-post, medium, reference]
+    status: draft
+
+  - page_id: "164:67"
+    name: "Recall / Desktop"
+    section: HOME
+    purpose: >
+      Main marketing landing page (desktop) for Kiub Recall. Hero, request
+      early access, announcement bar, 'You're on the list' state, Slack
+      callout, mobile screenshots, multiple group/section blocks.
+    covers:
+      - landing-page
+      - hero
+      - request-early-access
+      - waiting-list
+      - announcement
+      - slack-callout
+      - youre-on-the-list
+    platforms: [desktop]
+    status: active
+
+  - page_id: "397:744"
+    name: "Self Chat / Starred"
+    section: HOME
+    purpose: "Marketing pages around the Self Chat / Starred concept — mostly desktop hero variants."
+    covers: [self-chat, starred, marketing]
+    status: active
+
+  - page_id: "757:818"
+    name: "Browser History / Desktop"
+    section: BROWSER HISTORY
+    purpose: "Desktop landing variants A and B pitching the browsing-history feature, plus FAQ section."
+    covers: [browser-history, browsing-history, ab-test, faq, landing-page]
+    platforms: [desktop]
+    status: active
+
+  - page_id: "770:8987"
+    name: "Browser History / Mobile"
+    section: BROWSER HISTORY
+    purpose: "Mobile landing variants A and B pitching browsing-history."
+    covers: [browser-history, browsing-history, mobile, landing-page]
+    platforms: [mobile]
+    status: active
+
+  - page_id: "757:420"
+    name: "Onboarding promo / Desktop"
+    section: ONBOARDING
+    purpose: "Marketing onboarding pitch (desktop): 'Experience Kiub in less than 60 sec' — highlight + image + comment, widget note, Ask AI."
+    covers: [onboarding, marketing-onboarding, hero, ask-ai, widget-note]
+    platforms: [desktop]
+    status: active
+
+  - page_id: "770:5932"
+    name: "Onboarding promo / Mobile"
+    section: ONBOARDING
+    purpose: "Same onboarding promo on mobile, plus saved-item state."
+    covers: [onboarding, marketing-onboarding, mobile, saved-item]
+    platforms: [mobile]
+    status: active
+
+  - page_id: "682:816"
+    name: "LTD / Announcement"
+    section: LTD
+    purpose: "Lifetime-deal announcement page — 'Join 12,092 others', join-the-waiting-list CTA."
+    covers: [ltd, lifetime-deal, announcement, waiting-list]
+    status: active
+
+  - page_id: "15:2"
+    name: "LTD / Wireframe"
+    section: LTD
+    purpose: "Wireframe for the LTD landing — Home and bento.me reference."
+    covers: [ltd, wireframe, bento]
+    status: draft
+
+  - page_id: "0:1"
+    name: "LTD / Inspiration"
+    section: LTD
+    purpose: "Reference / inspiration board for LTD design (frame 1, bento.me)."
+    covers: [ltd, inspiration, bento]
+    status: draft
+
+  - page_id: "411:1383"
+    name: "🗑️ Junk / DO NOT USE"
+    purpose: "Old wireframes — Wireframe-1, Wireframe-2, Wireframe-6. Not production."
+    covers: [scratchpad, wireframe]
+    status: junk

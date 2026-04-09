@@ -1,0 +1,64 @@
+{
+  "title": "Kiub Marketing Site — landing pages",
+  "status": "active",
+  "owner": "francis",
+  "last_updated": "2026-04-09",
+  "purpose": "Marketing landing pages, hero sections, FAQs, waiting-list announcements, and onboarding promo for Kiub. Desktop and mobile.",
+  "sections": [
+    {
+      "heading": "Pages in this file",
+      "items": [
+        [
+          "Playground (draft)",
+          "Magazine post and Medium-style example reference page used as inspiration."
+        ],
+        [
+          "Recall / Desktop",
+          "Main marketing landing page (desktop) for Kiub Recall. Hero, request early access, announcement bar, 'You're on the list' state, Slack callout, mobile screenshots, multiple group/section blocks."
+        ],
+        [
+          "Self Chat / Starred",
+          "Marketing pages around the Self Chat / Starred concept — mostly desktop hero variants."
+        ],
+        [
+          "Browser History / Desktop",
+          "Desktop landing variants A and B pitching the browsing-history feature, plus FAQ section."
+        ],
+        [
+          "Browser History / Mobile",
+          "Mobile landing variants A and B pitching browsing-history."
+        ],
+        [
+          "Onboarding promo / Desktop",
+          "Marketing onboarding pitch (desktop): 'Experience Kiub in less than 60 sec' — highlight + image + comment, widget note, Ask AI."
+        ],
+        [
+          "Onboarding promo / Mobile",
+          "Same onboarding promo on mobile, plus saved-item state."
+        ],
+        [
+          "LTD / Announcement",
+          "Lifetime-deal announcement page — 'Join 12,092 others', join-the-waiting-list CTA."
+        ],
+        [
+          "LTD / Wireframe (draft)",
+          "Wireframe for the LTD landing — Home and bento.me reference."
+        ],
+        [
+          "LTD / Inspiration (draft)",
+          "Reference / inspiration board for LTD design (frame 1, bento.me)."
+        ],
+        [
+          "🗑️ Junk / DO NOT USE",
+          "Old wireframes — Wireframe-1, Wireframe-2, Wireframe-6. Not production."
+        ]
+      ]
+    }
+  ],
+  "not_in_file": [
+    "In-app product UI → see 'v0'",
+    "Store-listing / promo cover images → see 'Cover images'",
+    "Old marketing experiments → see 'Kiub (Archive)' project"
+  ],
+  "footer": "Discoverable from Slack via the kiub-figma-index registry. Run: python3 ~/.openclaw/workspace/kiub-figma-index/scripts/find.py \"your query\""
+}

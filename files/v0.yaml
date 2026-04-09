@@ -1,0 +1,289 @@
+file_id: ojL9QfXDJ0ig0Q9DSpcIGn
+file_name: v0
+title: "Kiub Web App — UI source of truth"
+url: https://www.figma.com/design/ojL9QfXDJ0ig0Q9DSpcIGn/v0
+purpose: >
+  Production UI for the Kiub web app: home dashboard, tasks, notes,
+  bookmarks, URL/highlight detail, settings, subscription, onboarding,
+  sign-up/login, and shared components. Desktop and mobile, light and dark.
+surface: [web-app]
+platforms: [desktop, mobile]
+themes: [light, dark]
+audience: [design, engineering, qa, product]
+status: active
+owner: francis
+last_updated: "2026-04-09"
+not_in_file:
+  - "Marketing landing pages → see 'Landing pages v0'"
+  - "Store-listing / promo cover images → see 'Cover images'"
+  - "Archived files (Skedu, Tasks, Settings, MVP, etc.) → see 'Kiub (Archive)' project"
+tags:
+  - dashboard
+  - global-search
+  - find-anything
+  - tasks
+  - calendar
+  - notes
+  - ai-chat
+  - bookmarks
+  - url-overview
+  - highlights
+  - tweet-card
+  - youtube
+  - image
+  - subscription
+  - upgrade
+  - billing
+  - payment
+  - onboarding
+  - sign-up
+  - login
+  - sso
+  - chrome-ext-auth
+  - components
+
+# Per-page descriptors. page_id matches Figma's canvas id.
+# `frames_of_interest` lists the production-relevant frame names from this page.
+pages:
+
+  - page_id: "623:51281"
+    name: "Components"
+    purpose: "Shared component primitives — divider, pill, text area, modal, button-with-shadow, notifications, success toasts."
+    covers: [components, divider, pill, text-area, modal, button, notification, toast]
+    tags: [design-system]
+    status: active
+
+  - page_id: "364:22046"
+    name: "Wireframe"
+    purpose: "Early wireframes for onboarding states, notifications, URL overview, image, highlight overview, Ask AI."
+    covers: [wireframe, onboarding, notifications, url, ask-ai, highlight]
+    status: draft
+
+  - page_id: "1777:48538"
+    name: "Onboarding / Desktop"
+    purpose: "Desktop onboarding flow — none state, highlight + image with comment, widget note, Ask AI."
+    covers: [onboarding, highlight, ask-ai, widget-note]
+    platforms: [desktop]
+    status: active
+
+  - page_id: "1790:6681"
+    name: "Onboarding / Mobile"
+    purpose: "Mobile onboarding flow — none, widget note, Ask AI, saved item."
+    covers: [onboarding, mobile-onboarding, ask-ai, saved-item]
+    platforms: [mobile]
+    status: active
+
+  - page_id: "1849:55986"
+    name: "Sign up / Login"
+    purpose: "Auth screens — sign up, login, password reset. SSO with Google and Microsoft. Light, dark, and Chrome-extension variants."
+    covers: [sign-up, login, sso, google, microsoft, password, reset, chrome-ext-auth]
+    themes: [light, dark]
+    status: active
+
+  - page_id: "2378:50931"
+    name: "Browsing History"
+    purpose: "Browsing-habit views and bookmark task lists exploring the 'history of what you've read' surface."
+    covers: [browsing-history, browsing-habit, bookmarks, task-lists]
+    status: draft
+
+  - page_id: "3899:50759"
+    name: "🧪 EXPERIMENT / html.to.design (staging weblinks)"
+    purpose: "Auto-imported staging page from html.to.design. Reference only — not designed in Figma."
+    covers: [staging, weblinks, html-to-design]
+    status: experiment
+    section: EXPERIMENT
+
+  - page_id: "3900:59954"
+    name: "🧪 EXPERIMENT / html.to.design (Claude)"
+    purpose: "Auto-imported pages including Choose-a-Plan yearly, settings/choose-a-plan, onboarding."
+    covers: [choose-a-plan, settings, onboarding, html-to-design]
+    status: experiment
+    section: EXPERIMENT
+
+  - page_id: "1849:109503"
+    name: "Desktop / Settings"
+    section: SETTINGS
+    purpose: >
+      Desktop Settings — subscription overview, manage subscription, choose
+      a plan, payment method (cards), billing history, delete account,
+      account profile, profile picture upload, notifications clipboard.
+      Includes free-trial, basic-plan, and LTD subscription states.
+    covers:
+      - settings
+      - subscription
+      - manage-subscription
+      - choose-a-plan
+      - upgrade-plan
+      - payment-method
+      - cards
+      - billing-history
+      - delete-account
+      - account
+      - profile-picture
+      - notifications
+    states: [free-trial, basic-plan, LTD]
+    platforms: [desktop]
+    status: active
+
+  - page_id: "3049:70420"
+    name: "Mobile / Settings"
+    section: SETTINGS
+    purpose: >
+      Mobile Settings — subscription, manage subscription, choose a plan,
+      payment method, billing history, delete account.
+    covers:
+      - settings
+      - subscription
+      - manage-subscription
+      - choose-a-plan
+      - upgrade-plan
+      - payment-method
+      - billing-history
+      - delete-account
+    platforms: [mobile]
+    status: active
+
+  - page_id: "1208:48438"
+    name: "Desktop / Main app (Dark)"
+    section: SETTINGS
+    purpose: >
+      Production dark-theme UI for the Kiub web app on desktop. Home
+      dashboard, Phosphor icon set, tasks (calendar + tasks / calendar /
+      tasks list), all/links/folders bookmark views, bookmark task lists
+      and calendar, app integrations (Trello, ChatGPT, Slack), bookmark
+      detail, notes (table of contents, AI chat, AI chat + ToC), URL
+      detail (overview, AI chat, note, comments), image, YouTube, tweet,
+      highlight (overview, readmore + note), new note.
+    covers:
+      - home-dashboard
+      - tasks
+      - calendar
+      - notes
+      - ai-chat
+      - bookmarks
+      - links
+      - folders
+      - all
+      - url-overview
+      - url-ai-chat
+      - url-note
+      - url-comments
+      - image
+      - youtube
+      - tweet
+      - tweet-card
+      - highlight
+      - highlight-detail
+      - highlight-overview
+      - highlight-readmore
+      - trello
+      - chatgpt
+      - slack
+      - phosphor-icons
+    themes: [dark]
+    platforms: [desktop]
+    status: active
+
+  - page_id: "1444:84177"
+    name: "Mobile / Main app (Dark)"
+    section: SETTINGS
+    purpose: >
+      Production dark-theme UI for the Kiub web app on mobile. Home,
+      install-extension prompts, loading states, browser options
+      (Chrome Web Store, Edge), URL overview, options menu, sign up,
+      login, reset password, reset link.
+    covers:
+      - home
+      - install-extension
+      - loading-state
+      - browser-options
+      - chrome-web-store
+      - url-overview
+      - sign-up
+      - login
+      - reset-password
+      - reset-link
+    themes: [dark]
+    platforms: [mobile]
+    status: active
+
+  - page_id: "2:17"
+    name: "Desktop / Main app (Light)"
+    section: SETTINGS
+    purpose: >
+      Production light-theme UI for the Kiub web app on desktop. Mirrors
+      the dark version: home, browsing habit, notifications clipboard,
+      choose-a-plan modal, browser variants (Microsoft Edge, Google
+      Chrome), tasks (calendar + tasks / calendar / tasks list),
+      all/links/folders, bookmark task views, browsing habit cards,
+      card defaults, app integrations (Trello, ChatGPT, Slack), Ask Kiub,
+      notes (ToC, AI chat), URL detail variants, image, YouTube,
+      highlight, tweet, new note, others options menu.
+    covers:
+      - home-dashboard
+      - browsing-habit
+      - notifications
+      - clipboard
+      - choose-a-plan
+      - tasks
+      - calendar
+      - notes
+      - ai-chat
+      - bookmarks
+      - links
+      - folders
+      - url-overview
+      - url-ai-chat
+      - url-note
+      - url-comments
+      - image
+      - youtube
+      - tweet
+      - tweet-card
+      - highlight
+      - highlight-detail
+      - highlight-overview
+      - highlight-readmore
+      - trello
+      - chatgpt
+      - slack
+      - ask-kiub
+      - microsoft-edge
+      - google-chrome
+    themes: [light]
+    platforms: [desktop]
+    status: active
+
+  - page_id: "1157:42678"
+    name: "Mobile / Main app (Light)"
+    section: SETTINGS
+    purpose: >
+      Production light-theme UI for the Kiub web app on mobile. Mirrors
+      mobile dark: home, loading states, install extension, sign up,
+      login, password reset flow, browser options, options menu,
+      onboarding none state.
+    covers:
+      - home
+      - install-extension
+      - loading-state
+      - browser-options
+      - sign-up
+      - login
+      - reset-password
+      - onboarding
+      - options
+    themes: [light]
+    platforms: [mobile]
+    status: active
+
+  - page_id: "25:3740"
+    name: "🗑️ Files / DO NOT USE"
+    purpose: "Single placeholder Desktop frame. Looks empty/sandbox."
+    covers: [placeholder]
+    status: junk
+
+  - page_id: "367:25946"
+    name: "🗑️ Junk / DO NOT USE"
+    purpose: "Mixed scratchpad — old wireframes, GCal app, ChatGPT tasks, bookmark task lists. Not production."
+    covers: [scratchpad]
+    status: junk

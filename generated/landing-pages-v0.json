@@ -1,0 +1,166 @@
+{
+  "file_key": "kVmBqpundCARPzp3g6KJIN",
+  "name": "Landing pages v0",
+  "last_modified": "2026-04-09T04:40:12Z",
+  "content_pages": [
+    {
+      "page_name": "Playground",
+      "page_id": "1125:1275",
+      "parent_section": null,
+      "frame_count": 3,
+      "frame_names": [
+        "Magazine Post",
+        "Magazine Post",
+        "Medium.com | Example Page"
+      ],
+      "sample_node_id": "1125:2119",
+      "sample_name": "Magazine Post"
+    },
+    {
+      "page_name": "Recall",
+      "page_id": "164:67",
+      "parent_section": "HOME",
+      "frame_count": 16,
+      "frame_names": [
+        "Desktop",
+        "Request early access",
+        "Announcement",
+        "You\u2019re on the list!",
+        "Group 389",
+        "Group 390",
+        "Slack",
+        "Group 394",
+        "Mobile",
+        "Group 370",
+        "Group 373",
+        "Group 372",
+        "Mobile",
+        "Mobile",
+        "Frame 1309",
+        "Group 371"
+      ],
+      "sample_node_id": "169:1007",
+      "sample_name": "Desktop"
+    },
+    {
+      "page_name": "Self Chat / Starred",
+      "page_id": "397:744",
+      "parent_section": "HOME",
+      "frame_count": 4,
+      "frame_names": [
+        "Desktop",
+        "Desktop",
+        "Desktop",
+        "Home"
+      ],
+      "sample_node_id": "823:4220",
+      "sample_name": "Desktop"
+    },
+    {
+      "page_name": "Desktop",
+      "page_id": "757:818",
+      "parent_section": "BROWSER HISTORY",
+      "frame_count": 3,
+      "frame_names": [
+        "A",
+        "B",
+        "FAQ"
+      ],
+      "sample_node_id": "757:819",
+      "sample_name": "A"
+    },
+    {
+      "page_name": "Mobile",
+      "page_id": "770:8987",
+      "parent_section": "BROWSER HISTORY",
+      "frame_count": 2,
+      "frame_names": [
+        "B",
+        "A"
+      ],
+      "sample_node_id": "837:2270",
+      "sample_name": "B"
+    },
+    {
+      "page_name": "Desktop",
+      "page_id": "757:420",
+      "parent_section": "ONBOARDING",
+      "frame_count": 6,
+      "frame_names": [
+        "Onboarding / None",
+        "Onboarding / Highlight + Image / Comment",
+        "Onboarding / Highlight + Image / Comment",
+        "Onboarding / Highlight + Image / Comment",
+        "Widget / Note",
+        "Ask AI"
+      ],
+      "sample_node_id": "770:4963",
+      "sample_name": "Onboarding / None"
+    },
+    {
+      "page_name": "Mobile",
+      "page_id": "770:5932",
+      "parent_section": "ONBOARDING",
+      "frame_count": 7,
+      "frame_names": [
+        "Onboarding / None",
+        "Onboarding / None",
+        "Onboarding / None",
+        "Onboarding / None",
+        "Widget / Note",
+        "Ask AI",
+        "Onboarding / Saved item"
+      ],
+      "sample_node_id": "770:7322",
+      "sample_name": "Onboarding / None"
+    },
+    {
+      "page_name": "Desktop",
+      "page_id": "682:816",
+      "parent_section": "LTD",
+      "frame_count": 1,
+      "frame_names": [
+        "Announcement"
+      ],
+      "sample_node_id": "682:910",
+      "sample_name": "Announcement"
+    },
+    {
+      "page_name": "Wireframe",
+      "page_id": "15:2",
+      "parent_section": "LTD",
+      "frame_count": 2,
+      "frame_names": [
+        "Home",
+        "bento.me"
+      ],
+      "sample_node_id": "15:4",
+      "sample_name": "Home"
+    },
+    {
+      "page_name": "Insp",
+      "page_id": "0:1",
+      "parent_section": "LTD",
+      "frame_count": 2,
+      "frame_names": [
+        "Frame 1",
+        "bento.me"
+      ],
+      "sample_node_id": "6:16",
+      "sample_name": "Frame 1"
+    },
+    {
+      "page_name": "Junk",
+      "page_id": "411:1383",
+      "parent_section": null,
+      "frame_count": 3,
+      "frame_names": [
+        "Wireframe - 2",
+        "Wireframe - 6",
+        "Wireframe - 1"
+      ],
+      "sample_node_id": "164:2368",
+      "sample_name": "Wireframe - 2"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+file_id: TCK7xBCPn9Crz69zpAiTvK
+file_name: Cover images
+title: "Kiub Store / Listing Cover Images"
+url: https://www.figma.com/design/TCK7xBCPn9Crz69zpAiTvK/Cover-images
+purpose: >
+  Hero / store-listing / promo cover images for every Kiub distribution
+  surface — Chrome new tab, Opera new tab, Chrome extension (multiple
+  variants), and the Slack app. One Figma page per surface, with the '5'
+  frame typically being the primary Chrome Web Store hero.
+surface: [store-listing, marketing-asset]
+platforms: [desktop]
+themes: [dark, light]
+audience: [marketing, growth, design]
+status: active
+owner: francis
+last_updated: "2026-04-09"
+not_in_file:
+  - "In-app product UI → see 'v0'"
+  - "Marketing landing pages → see 'Landing pages v0'"
+# Custom README sections (split active vs ARCHIVE label)
+readme_sections:
+  - heading: "Active pages"
+    items:
+      - ["Chrome (browser new tab)", "Hero/store covers for the Kiub Chrome new-tab experience. 'A new tab for what's important', dark Mt. Fuji background. Frames 1–5 are size variants; '440 x 280' is the Chrome Web Store thumbnail size."]
+      - ["Opera (browser new tab)", "Same new-tab hero adapted for the Opera add-on listing. 'Install now to experience a beautiful new tab'."]
+  - heading: "Below the ARCHIVE label"
+    subtitle: "These pages sit under the ARCHIVE separator in the page list. Treat as inactive unless you confirm otherwise with the design owner."
+    items:
+      - ["Chrome ext - LTD", "Chrome extension store covers for the Lifetime-Deal version. 'Experience a beautiful new tab — Add to Chrome'."]
+      - ["Chrome ext - Side Panel", "Chrome extension covers for the Side Panel variant."]
+      - ["Chrome ext (legacy)", "Older Chrome-extension cover set with extras: Preview, Installation Onboarding, Pro subscription (yearly/monthly), Home / Intro."]
+      - ["Chrome ext v2", "Refreshed Chrome-extension cover set — frames 1–5 plus 440x280 thumbnail."]
+      - ["Slack app", "Slack app store covers — 'Turn Slack messages into Tasks. React with bell emoji.' Variants A–E plus desktop and mobile."]
+tags:
+  - cover-image
+  - hero
+  - chrome-web-store
+  - store-listing
+  - promo
+  - opera
+  - chrome
+  - slack
+  - chrome-ext
+  - new-tab
+
+pages:
+
+  - page_id: "331:5593"
+    name: "Chrome (browser new tab)"
+    purpose: >
+      Hero/store covers for the Kiub Chrome new-tab experience. 'A new tab
+      for what's important' headline, dark sunset Mt. Fuji background.
+      Frames 1–5 are size variants for store; '440 x 280' is the Chrome
+      Web Store thumbnail size; 'Browsing habit' is a section asset.
+    covers:
+      - chrome
+      - new-tab
+      - hero
+      - store-listing
+      - 440x280
+      - browsing-habit
+      - mount-fuji
+      - dark-theme
+    states: [primary-hero, store-thumbnail]
+    status: active
+
+  - page_id: "339:18709"
+    name: "Opera (browser new tab)"
+    purpose: "Same new-tab hero adapted for the Opera add-on listing. 'Install now to experience a beautiful new tab'."
+    covers: [opera, new-tab, hero, store-listing, install-now]
+    status: active
+
+  - page_id: "316:3036"
+    name: "Chrome ext - LTD"
+    purpose: >
+      Chrome extension store covers for the Lifetime-Deal version.
+      'Experience a beautiful new tab — Add to Chrome' headline,
+      red-canyon background. Includes 'Search result page' and 'Add to
+      chrome page' supporting assets.
+    covers:
+      - chrome-ext
+      - ltd
+      - lifetime-deal
+      - hero
+      - store-listing
+      - add-to-chrome
+      - search-result
+    status: active
+
+  - page_id: "249:17961"
+    name: "Chrome ext - Side Panel"
+    purpose: "Chrome extension covers for the Side Panel variant. Same hero set as LTD."
+    covers: [chrome-ext, side-panel, hero, store-listing, add-to-chrome]
+    status: active
+
+  - page_id: "0:1"
+    name: "Chrome ext (legacy)"
+    purpose: >
+      Older Chrome-extension cover set with extra content: Preview frames,
+      Installation Onboarding (3 variants), Pro subscription (yearly /
+      monthly), Home / Intro screens.
+    covers:
+      - chrome-ext
+      - legacy
+      - hero
+      - preview
+      - installation-onboarding
+      - pro-subscription
+      - yearly
+      - monthly
+      - home-intro
+    status: archived
+
+  - page_id: "201:12523"
+    name: "Chrome ext v2"
+    purpose: "Refreshed Chrome-extension cover set — frames 1–5 plus 440x280 thumbnail."
+    covers: [chrome-ext, v2, hero, store-listing, 440x280]
+    status: active
+
+  - page_id: "139:14780"
+    name: "Slack app"
+    purpose: >
+      Slack app store covers — 'Turn Slack messages into Tasks. Create
+      tasks instantly by reacting to messages with a bell emoji.'
+      Variants A–E plus desktop and mobile.
+    covers:
+      - slack
+      - slack-app
+      - tasks
+      - reaction-emoji
+      - bell-emoji
+      - hero
+      - store-listing
+    status: active

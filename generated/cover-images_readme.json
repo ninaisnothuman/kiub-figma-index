@@ -1,0 +1,53 @@
+{
+  "title": "Kiub Store / Listing Cover Images",
+  "status": "active",
+  "owner": "francis",
+  "last_updated": "2026-04-09",
+  "purpose": "Hero / store-listing / promo cover images for every Kiub distribution surface — Chrome new tab, Opera new tab, Chrome extension (multiple variants), and the Slack app. One Figma page per surface, with the '5' frame typically being the primary Chrome Web Store hero.",
+  "sections": [
+    {
+      "heading": "Active pages",
+      "items": [
+        [
+          "Chrome (browser new tab)",
+          "Hero/store covers for the Kiub Chrome new-tab experience. 'A new tab for what's important', dark Mt. Fuji background. Frames 1–5 are size variants; '440 x 280' is the Chrome Web Store thumbnail size."
+        ],
+        [
+          "Opera (browser new tab)",
+          "Same new-tab hero adapted for the Opera add-on listing. 'Install now to experience a beautiful new tab'."
+        ]
+      ]
+    },
+    {
+      "heading": "Below the ARCHIVE label",
+      "subtitle": "These pages sit under the ARCHIVE separator in the page list. Treat as inactive unless you confirm otherwise with the design owner.",
+      "items": [
+        [
+          "Chrome ext - LTD",
+          "Chrome extension store covers for the Lifetime-Deal version. 'Experience a beautiful new tab — Add to Chrome'."
+        ],
+        [
+          "Chrome ext - Side Panel",
+          "Chrome extension covers for the Side Panel variant."
+        ],
+        [
+          "Chrome ext (legacy)",
+          "Older Chrome-extension cover set with extras: Preview, Installation Onboarding, Pro subscription (yearly/monthly), Home / Intro."
+        ],
+        [
+          "Chrome ext v2",
+          "Refreshed Chrome-extension cover set — frames 1–5 plus 440x280 thumbnail."
+        ],
+        [
+          "Slack app",
+          "Slack app store covers — 'Turn Slack messages into Tasks. React with bell emoji.' Variants A–E plus desktop and mobile."
+        ]
+      ]
+    }
+  ],
+  "not_in_file": [
+    "In-app product UI → see 'v0'",
+    "Marketing landing pages → see 'Landing pages v0'"
+  ],
+  "footer": "Discoverable from Slack via the kiub-figma-index registry. Run: python3 ~/.openclaw/workspace/kiub-figma-index/scripts/find.py \"your query\""
+}

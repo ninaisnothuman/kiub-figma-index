@@ -1,0 +1,84 @@
+{
+  "title": "Kiub Web App — UI source of truth",
+  "status": "active",
+  "owner": "francis",
+  "last_updated": "2026-04-09",
+  "purpose": "Production UI for the Kiub web app: home dashboard, tasks, notes, bookmarks, URL/highlight detail, settings, subscription, onboarding, sign-up/login, and shared components. Desktop and mobile, light and dark.",
+  "sections": [
+    {
+      "heading": "Pages in this file",
+      "items": [
+        [
+          "Components",
+          "Shared component primitives — divider, pill, text area, modal, button-with-shadow, notifications, success toasts."
+        ],
+        [
+          "Wireframe (draft)",
+          "Early wireframes for onboarding states, notifications, URL overview, image, highlight overview, Ask AI."
+        ],
+        [
+          "Onboarding / Desktop",
+          "Desktop onboarding flow — none state, highlight + image with comment, widget note, Ask AI."
+        ],
+        [
+          "Onboarding / Mobile",
+          "Mobile onboarding flow — none, widget note, Ask AI, saved item."
+        ],
+        [
+          "Sign up / Login",
+          "Auth screens — sign up, login, password reset. SSO with Google and Microsoft. Light, dark, and Chrome-extension variants."
+        ],
+        [
+          "Browsing History (draft)",
+          "Browsing-habit views and bookmark task lists exploring the 'history of what you've read' surface."
+        ],
+        [
+          "🧪 EXPERIMENT / html.to.design (staging weblinks)",
+          "Auto-imported staging page from html.to.design. Reference only — not designed in Figma."
+        ],
+        [
+          "🧪 EXPERIMENT / html.to.design (Claude)",
+          "Auto-imported pages including Choose-a-Plan yearly, settings/choose-a-plan, onboarding."
+        ],
+        [
+          "Desktop / Settings",
+          "Desktop Settings — subscription overview, manage subscription, choose a plan, payment method (cards), billing history, delete account, account profile, profile picture upload, notifications clipboard. Includes free-trial, basic-plan, and LTD subscription states."
+        ],
+        [
+          "Mobile / Settings",
+          "Mobile Settings — subscription, manage subscription, choose a plan, payment method, billing history, delete account."
+        ],
+        [
+          "Desktop / Main app (Dark)",
+          "Production dark-theme UI for the Kiub web app on desktop. Home dashboard, Phosphor icon set, tasks (calendar + tasks / calendar / tasks list), all/links/folders bookmark views, bookmark task lists and calendar, app integrations (Trello, ChatGPT, Slack), bookmark detail, notes (table of contents, AI chat, AI chat + ToC), URL detail (overview, AI chat, note, comments), image, YouTube, tweet, highlight (overview, readmore + note), new note."
+        ],
+        [
+          "Mobile / Main app (Dark)",
+          "Production dark-theme UI for the Kiub web app on mobile. Home, install-extension prompts, loading states, browser options (Chrome Web Store, Edge), URL overview, options menu, sign up, login, reset password, reset link."
+        ],
+        [
+          "Desktop / Main app (Light)",
+          "Production light-theme UI for the Kiub web app on desktop. Mirrors the dark version: home, browsing habit, notifications clipboard, choose-a-plan modal, browser variants (Microsoft Edge, Google Chrome), tasks (calendar + tasks / calendar / tasks list), all/links/folders, bookmark task views, browsing habit cards, card defaults, app integrations (Trello, ChatGPT, Slack), Ask Kiub, notes (ToC, AI chat), URL detail variants, image, YouTube, highlight, tweet, new note, others options menu."
+        ],
+        [
+          "Mobile / Main app (Light)",
+          "Production light-theme UI for the Kiub web app on mobile. Mirrors mobile dark: home, loading states, install extension, sign up, login, password reset flow, browser options, options menu, onboarding none state."
+        ],
+        [
+          "🗑️ Files / DO NOT USE",
+          "Single placeholder Desktop frame. Looks empty/sandbox."
+        ],
+        [
+          "🗑️ Junk / DO NOT USE",
+          "Mixed scratchpad — old wireframes, GCal app, ChatGPT tasks, bookmark task lists. Not production."
+        ]
+      ]
+    }
+  ],
+  "not_in_file": [
+    "Marketing landing pages → see 'Landing pages v0'",
+    "Store-listing / promo cover images → see 'Cover images'",
+    "Archived files (Skedu, Tasks, Settings, MVP, etc.) → see 'Kiub (Archive)' project"
+  ],
+  "footer": "Discoverable from Slack via the kiub-figma-index registry. Run: python3 ~/.openclaw/workspace/kiub-figma-index/scripts/find.py \"your query\""
+}

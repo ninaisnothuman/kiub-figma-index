@@ -1,0 +1,130 @@
+[
+  {
+    "page_name": "Chrome",
+    "page_id": "331:5593",
+    "sample_node_id": "337:5368",
+    "sample_name": "5",
+    "all_frame_names": [
+      "5",
+      "1",
+      "440 x 280",
+      "2",
+      "3",
+      "4",
+      "JUNK",
+      "Browsing habit"
+    ],
+    "frame_count": 8
+  },
+  {
+    "page_name": "Opera",
+    "page_id": "339:18709",
+    "sample_node_id": "339:18710",
+    "sample_name": "5",
+    "all_frame_names": [
+      "5",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "frame_count": 5
+  },
+  {
+    "page_name": "Chrome ext - LTD",
+    "page_id": "316:3036",
+    "sample_node_id": "316:3037",
+    "sample_name": "5",
+    "all_frame_names": [
+      "5",
+      "Misc",
+      "440 x 280",
+      "1",
+      "3",
+      "2",
+      "4",
+      "Search result page",
+      "Add to chrome page"
+    ],
+    "frame_count": 9
+  },
+  {
+    "page_name": "Chrome ext - Side Panel",
+    "page_id": "249:17961",
+    "sample_node_id": "250:25353",
+    "sample_name": "5",
+    "all_frame_names": [
+      "5",
+      "Misc",
+      "440 x 280",
+      "1",
+      "3",
+      "2",
+      "4",
+      "Search result page",
+      "Add to chrome page"
+    ],
+    "frame_count": 9
+  },
+  {
+    "page_name": "Chrome ext",
+    "page_id": "0:1",
+    "sample_node_id": "1:15914",
+    "sample_name": "2",
+    "all_frame_names": [
+      "2",
+      "440 x 280",
+      "440 x 282",
+      "1",
+      "3",
+      "4",
+      "5",
+      "6",
+      "Preview",
+      "Preview",
+      "Installation Onboarding",
+      "Installation Onboarding",
+      "Installation Onboarding",
+      "Pro subscription",
+      "Pro subscription",
+      "Home / Intro",
+      "Home / Intro",
+      "Home / Intro",
+      "Pro subscription / Yearly",
+      "Pro subscription / Monthly"
+    ],
+    "frame_count": 20
+  },
+  {
+    "page_name": "Chrome ext v2",
+    "page_id": "201:12523",
+    "sample_node_id": "201:12524",
+    "sample_name": "5",
+    "all_frame_names": [
+      "5",
+      "440 x 280",
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "frame_count": 6
+  },
+  {
+    "page_name": "Slack app",
+    "page_id": "139:14780",
+    "sample_node_id": "139:14784",
+    "sample_name": "A",
+    "all_frame_names": [
+      "A",
+      "Desktop",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "Mobile"
+    ],
+    "frame_count": 8
+  }
+]
