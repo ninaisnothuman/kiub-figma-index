@@ -57,6 +57,65 @@ and `last_modified` does the heavy lifting).
 
 Requires `FIGMA_TOKEN` in `~/.openclaw/secrets.json` and `pyyaml`.
 
+## Full automation (no Claude in the loop)
+
+Two pieces work together to keep the in-Figma READMEs in sync with the
+overlay YAMLs *without* Claude or any human reading a generated JS file:
+
+### 1. Figma plugin — `Kiub README Sync`
+
+A one-click plugin published privately to the Kiub team in Figma. When a
+designer opens any registered Kiub file and runs `Plugins → Kiub README
+Sync → Sync README from registry`, the plugin:
+
+1. Fetches `generated/manifest.json` from this repo on GitHub
+2. Looks up the current file by `figma.root.name`
+3. Fetches the corresponding `generated/<file>_readme.json`
+4. Clears the `📄 README` page and rebuilds it from the data
+
+The plugin source lives in `figma-plugin/`. To install (one-time):
+
+```
+1. Open Figma Desktop (or Figma in browser, on a Pro/Org plan)
+2. Plugins → Development → Import plugin from manifest…
+3. Select figma-plugin/manifest.json from this repo
+4. (Optional) Plugins → Manage plugins → Publish to your team privately
+   so other designers can run it without re-importing
+```
+
+### 2. Daily cron — `scripts/cron.sh`
+
+Runs once a day on a server (or your laptop). It:
+
+1. `git pull` — picks up overlay YAML edits anyone pushed
+2. `build_index.py` — refreshes `index.json` from live Figma state
+3. `sync.py gen` — regenerates `generated/*_readme.json` and `manifest.json`
+4. Auto-commits + pushes regenerated artifacts so the plugin sees fresh data
+5. `sync.py drift --slack` — posts a Slack alert when drift exists
+
+Install:
+```bash
+chmod +x scripts/cron.sh
+crontab -e
+# add:
+0 9 * * * /Users/francisotuogbai/.openclaw/workspace/kiub-figma-index/scripts/cron.sh >> /tmp/kiub-figma-index.log 2>&1
+```
+
+### How a typical change flows end-to-end
+
+1. You edit `files/v0.yaml` and push (or someone else does)
+2. Cron runs at 9am → regenerates `generated/v0_readme.json` → commits + pushes
+3. Cron runs `drift --slack` → posts to `#kiub-design` (or wherever
+   `SLACK_PM_CHANNEL` points): *"v0 README has new content. Open the file
+   and run Plugins → Kiub README Sync."*
+4. A designer opens v0 in Figma → clicks the plugin → README updates from
+   the latest YAML in 2 seconds
+
+**What this is NOT**: it's not a true "cron writes Figma at 3am while
+nobody's watching" loop. Figma has no headless write API — writes go through
+the Plugin API, which only runs while a Figma client has the file open. The
+human action is reduced to a one-click plugin run, prompted automatically.
+
 ## Sync mechanism
 
 The overlay YAMLs are the source of truth. READMEs in Figma are *generated*

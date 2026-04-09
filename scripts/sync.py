@@ -349,23 +349,89 @@ def cmd_show(name):
     sys.exit(2)
 
 
-def cmd_drift():
+def cmd_drift(post_to_slack=False):
     report, has_drift = detect_drift()
     print_drift_report(report)
     print(f"\nFull report: {DRIFT_REPORT}")
+    if post_to_slack and has_drift:
+        slack_post_drift(report)
     sys.exit(1 if has_drift else 0)
+
+
+def slack_post_drift(report):
+    """Post a drift summary to the Slack channel configured in secrets."""
+    secrets = json.loads(SECRETS.read_text())
+    token = secrets.get("SLACK_BOT_TOKEN")
+    channel = secrets.get("SLACK_PM_CHANNEL")
+    if not (token and channel):
+        print("!! SLACK_BOT_TOKEN or SLACK_PM_CHANNEL missing — skipping Slack post")
+        return
+
+    blocks = [{
+        "type": "header",
+        "text": {"type": "plain_text", "text": "Kiub Figma index — drift detected"},
+    }]
+    for f in report["files"]:
+        if "error" in f:
+            blocks.append({
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": f"*{f['file']}*: ⚠️ `{f['error']}`"},
+            })
+            continue
+        n, s, r = f["new_in_figma"], f["stale_in_overlay"], f["renamed_in_figma"]
+        if not (n or s or r):
+            continue
+        lines = [f"*{f['file']}*  ·  `{f['overlay_path']}`"]
+        if n:
+            lines.append(f"  • {len(n)} new page(s) in Figma not in overlay: " +
+                         ", ".join(f"`{p['name']}`" for p in n[:5]))
+        if s:
+            lines.append(f"  • {len(s)} stale entry(ies) in overlay: " +
+                         ", ".join(f"`{p['name']}`" for p in s[:5]))
+        if r:
+            lines.append(f"  • {len(r)} rename(s) in Figma vs overlay")
+        blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": "\n".join(lines)}})
+
+    blocks.append({
+        "type": "context",
+        "elements": [{
+            "type": "mrkdwn",
+            "text": ("Edit overlays in <https://github.com/ninaisnothuman/"
+                     "kiub-figma-index/tree/main/files|kiub-figma-index/files>, "
+                     "then open the file in Figma and run *Plugins → Kiub README Sync*."),
+        }],
+    })
+
+    payload = json.dumps({"channel": channel, "blocks": blocks, "text": "Kiub Figma index drift"}).encode()
+    req = urllib.request.Request(
+        "https://slack.com/api/chat.postMessage",
+        data=payload,
+        headers={"Content-Type": "application/json; charset=utf-8",
+                 "Authorization": f"Bearer {token}"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15, context=_SSL) as r:
+            resp = json.loads(r.read().decode())
+            if not resp.get("ok"):
+                print(f"!! slack post failed: {resp.get('error')}")
+            else:
+                print(f"posted drift report to slack ({channel})")
+    except Exception as e:
+        print(f"!! slack post error: {e}")
 
 
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
-    sub.add_parser("drift")
+    drift_parser = sub.add_parser("drift")
+    drift_parser.add_argument("--slack", action="store_true",
+                              help="Post drift summary to Slack if drift exists")
     sub.add_parser("gen")
     s = sub.add_parser("show")
     s.add_argument("name")
     args = ap.parse_args()
     if args.cmd == "drift":
-        cmd_drift()
+        cmd_drift(post_to_slack=args.slack)
     elif args.cmd == "gen":
         cmd_gen()
     elif args.cmd == "show":
