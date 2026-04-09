@@ -54,11 +54,14 @@ async function sync() {
   const readme_data = await dResp.json();
 
   // 3. Render
+  if (typeof figma.loadAllPagesAsync === "function") {
+    await figma.loadAllPagesAsync();
+  }
   await figma.loadFontAsync({ family: "Inter", style: "Regular" });
   await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
   await figma.loadFontAsync({ family: "Inter", style: "Bold" });
 
-  let readme = (await figma.root.children).find(p => p.name === "📄 README");
+  let readme = figma.root.children.find(p => p.name === "📄 README");
   if (readme) {
     for (const c of [...readme.children]) c.remove();
   } else {
