@@ -4,13 +4,13 @@
 // kiub-figma-index GitHub repo and rewrites the "📄 README" page in this file.
 // Idempotent: clears existing README children and redraws.
 //
-// Source repo: https://github.com/{REPO_PATH_PLACEHOLDER}
+// Source repo: https://github.com/ninaisnothuman/kiub-figma-index
 //
 // The plugin uses figma.root.name to look up the right descriptor in
 // generated/manifest.json. To add a new file to the registry, edit the YAML
 // overlay in the repo and run `python3 scripts/sync.py gen`.
 
-const REPO_BASE = "https://raw.githubusercontent.com/{REPO_PATH_PLACEHOLDER}/main";
+const REPO_BASE = "https://raw.githubusercontent.com/ninaisnothuman/kiub-figma-index/main";
 const MANIFEST_URL = `${REPO_BASE}/generated/manifest.json`;
 
 figma.showUI(__html__, { width: 400, height: 280 });
