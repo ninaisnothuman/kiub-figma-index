@@ -5,6 +5,9 @@
   "main": "code.js",
   "ui": "ui.html",
   "editorType": ["figma"],
+  "relaunchButtons": [
+    { "command": "sync", "name": "Sync README from registry" }
+  ],
   "networkAccess": {
     "allowedDomains": [
       "https://raw.githubusercontent.com"

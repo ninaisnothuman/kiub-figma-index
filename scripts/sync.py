@@ -24,10 +24,13 @@ Workflow for cron:
 """
 
 import argparse
+import hashlib
 import json
 import ssl
 import sys
+import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 import certifi
@@ -37,8 +40,12 @@ ROOT = Path(__file__).resolve().parent.parent
 FILES_DIR = ROOT / "files"
 GENERATED_DIR = ROOT / "generated"
 DRIFT_REPORT = ROOT / "drift.json"
+WATCHER_STATE = Path.home() / ".openclaw" / ".kiub-figma-index-watcher.json"
 SECRETS = Path.home() / ".openclaw" / "secrets.json"
 _SSL = ssl.create_default_context(cafile=certifi.where())
+
+# Slack DM target for the staleness watcher
+WATCHER_SLACK_USER = "U048RETPVS5"  # Francis Otuogbai
 
 # Pages we treat as "structural" — visual separators, section header labels,
 # the README itself. These don't need an overlay entry.
@@ -319,8 +326,10 @@ def generate_js(overlay, overlay_path):
 
 def cmd_gen():
     GENERATED_DIR.mkdir(parents=True, exist_ok=True)
-    # Also build a manifest mapping file name → readme data URL, used by the
-    # Figma plugin to dispatch on figma.root.name.
+    # Also build a manifest mapping file name → readme data URL + content_hash.
+    # The Figma plugin reads this manifest, fetches the data, then writes the
+    # content_hash into sharedPluginData.kiub_index.last_sync. The watcher
+    # compares hashes (not timestamps) to detect staleness.
     manifest = {}
     for path, overlay in load_overlays():
         # 1. JS snippet (for one-off Claude/MCP applies)
@@ -329,15 +338,181 @@ def cmd_gen():
         out_js.write_text(js)
         # 2. JSON data (what the Figma plugin fetches)
         data = build_readme_data(overlay)
+        json_bytes = json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8")
         out_json = GENERATED_DIR / f"{path.stem}_readme.json"
-        out_json.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+        out_json.write_bytes(json_bytes)
+        content_hash = hashlib.sha1(json_bytes).hexdigest()[:16]
         manifest[overlay["file_name"]] = {
             "file_id": overlay["file_id"],
             "data_path": f"generated/{path.stem}_readme.json",
+            "content_hash": content_hash,
         }
-        print(f"wrote {out_js.relative_to(ROOT)} + {out_json.name}")
+        print(f"wrote {out_js.relative_to(ROOT)} + {out_json.name} (hash {content_hash})")
     (GENERATED_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False))
     print(f"wrote {GENERATED_DIR.relative_to(ROOT)}/manifest.json ({len(manifest)} files)")
+
+
+# ------------------------- STALE-README WATCHER ---------------------------
+#
+# Compares the content_hash in generated/manifest.json (the canonical hash of
+# the rendered README JSON, computed during `sync.py gen`) against the hash
+# stored in Figma's sharedPluginData.kiub_index.last_sync (written by the
+# plugin on every successful sync). Hash mismatch → README is stale.
+#
+# Hash-based comparison is timing-free: it doesn't matter when Figma's
+# lastModified bumps. The only thing that matters is whether the rendered
+# README matches the latest YAML overlay.
+#
+# Per-file dedupe via WATCHER_STATE: don't re-DM for the same hash mismatch.
+
+def fetch_file_sync_state(file_id):
+    """Returns (file_name, last_sync_dict_or_None) from Figma sharedPluginData."""
+    data = figma_get(f"files/{file_id}?depth=1&plugin_data=shared")
+    file_name = data.get("name", "")
+    spd = (data.get("document") or {}).get("sharedPluginData") or {}
+    kiub = spd.get("kiub_index") or {}
+    raw = kiub.get("last_sync")
+    last_sync = None
+    if raw:
+        try:
+            last_sync = json.loads(raw)
+        except Exception:
+            last_sync = None
+    return file_name, last_sync
+
+
+def load_watcher_state():
+    if WATCHER_STATE.exists():
+        try:
+            return json.loads(WATCHER_STATE.read_text())
+        except Exception:
+            return {}
+    return {}
+
+
+def save_watcher_state(state):
+    WATCHER_STATE.parent.mkdir(parents=True, exist_ok=True)
+    WATCHER_STATE.write_text(json.dumps(state, indent=2))
+
+
+def cmd_watch(post_to_slack=False, force=False):
+    """Detect stale READMEs (hash-based) and DM Francis on Slack."""
+    manifest_path = GENERATED_DIR / "manifest.json"
+    if not manifest_path.exists():
+        print(f"!! {manifest_path} missing — run `sync.py gen` first")
+        sys.exit(2)
+    manifest = json.loads(manifest_path.read_text())
+
+    state = load_watcher_state()
+    alerts = []
+
+    for file_name, entry in manifest.items():
+        file_id = entry["file_id"]
+        expected_hash = entry["content_hash"]
+        try:
+            actual_name, last_sync = fetch_file_sync_state(file_id)
+        except Exception as e:
+            print(f"!! {file_name}: fetch error {e}")
+            continue
+
+        stored_hash = (last_sync or {}).get("content_hash")
+        synced_at = (last_sync or {}).get("at")
+        is_stale = stored_hash != expected_hash
+
+        prev = state.get(file_id, {})
+        already_alerted_for = prev.get("last_alerted_hash")
+
+        status = (
+            f"expected={expected_hash} stored={stored_hash or '(never)'} "
+            f"synced_at={synced_at or '-'}"
+        )
+        if not is_stale:
+            print(f"OK {file_name}: {status}")
+            continue
+
+        if not force and already_alerted_for == expected_hash:
+            print(f"-- {file_name}: STALE, suppressed (already alerted for hash {expected_hash})")
+            continue
+
+        print(f"!! {file_name}: STALE, will alert ({status})")
+        alerts.append({
+            "file_id": file_id,
+            "file_name": file_name,
+            "expected_hash": expected_hash,
+            "stored_hash": stored_hash,
+            "synced_at": synced_at,
+        })
+
+    if not alerts:
+        print("\nNo new staleness to report.")
+        return
+
+    print(f"\n{len(alerts)} stale README(s)")
+    if post_to_slack:
+        ok = slack_dm_stale(alerts)
+        if ok:
+            for a in alerts:
+                state[a["file_id"]] = {
+                    "last_alerted_hash": a["expected_hash"],
+                    "last_alerted_at": datetime.now(timezone.utc).isoformat(),
+                }
+            save_watcher_state(state)
+            print(f"saved watcher state → {WATCHER_STATE}")
+    else:
+        print("(use --slack to actually DM)")
+
+
+def slack_dm_stale(alerts):
+    secrets = json.loads(SECRETS.read_text())
+    token = secrets.get("SLACK_BOT_TOKEN")
+    if not token:
+        print("!! SLACK_BOT_TOKEN missing")
+        return False
+
+    blocks = [{
+        "type": "header",
+        "text": {"type": "plain_text", "text": "Kiub Figma — README out of date"},
+    }]
+    for a in alerts:
+        bullets = [
+            f"*<https://figma.com/file/{a['file_id']}|{a['file_name']}>*",
+            f"  Latest hash: `{a['expected_hash']}`",
+            f"  In Figma:    `{a['stored_hash'] or '(never synced)'}`",
+        ]
+        if a.get("synced_at"):
+            bullets.append(f"  Last synced: `{a['synced_at']}`")
+        blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": "\n".join(bullets)}})
+    blocks.append({
+        "type": "context",
+        "elements": [{
+            "type": "mrkdwn",
+            "text": ("Open the file in Figma and click *Sync README from registry* "
+                     "(button on the README page, or Plugins → Kiub README Sync)."),
+        }],
+    })
+
+    payload = json.dumps({
+        "channel": WATCHER_SLACK_USER,
+        "blocks": blocks,
+        "text": f"{len(alerts)} Kiub README(s) out of date",
+    }).encode()
+    req = urllib.request.Request(
+        "https://slack.com/api/chat.postMessage",
+        data=payload,
+        headers={"Content-Type": "application/json; charset=utf-8",
+                 "Authorization": f"Bearer {token}"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15, context=_SSL) as r:
+            resp = json.loads(r.read().decode())
+            if not resp.get("ok"):
+                print(f"!! slack DM failed: {resp.get('error')}")
+                return False
+            print(f"DM'd Francis ({WATCHER_SLACK_USER}) — {len(alerts)} stale file(s)")
+            return True
+    except Exception as e:
+        print(f"!! slack DM error: {e}")
+        return False
 
 
 def cmd_show(name):
@@ -427,6 +602,11 @@ def main():
     drift_parser.add_argument("--slack", action="store_true",
                               help="Post drift summary to Slack if drift exists")
     sub.add_parser("gen")
+    watch_parser = sub.add_parser("watch", help="Stale-README watcher (cron)")
+    watch_parser.add_argument("--slack", action="store_true",
+                              help="DM Francis on Slack about stale READMEs")
+    watch_parser.add_argument("--force", action="store_true",
+                              help="Re-alert even if we already alerted for this lastModified")
     s = sub.add_parser("show")
     s.add_argument("name")
     args = ap.parse_args()
@@ -434,6 +614,8 @@ def main():
         cmd_drift(post_to_slack=args.slack)
     elif args.cmd == "gen":
         cmd_gen()
+    elif args.cmd == "watch":
+        cmd_watch(post_to_slack=args.slack, force=args.force)
     elif args.cmd == "show":
         cmd_show(args.name)
 

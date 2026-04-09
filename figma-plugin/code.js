@@ -13,23 +13,37 @@
 const REPO_BASE = "https://raw.githubusercontent.com/ninaisnothuman/kiub-figma-index/main";
 const MANIFEST_URL = `${REPO_BASE}/generated/manifest.json`;
 
-figma.showUI(__html__, { width: 400, height: 280 });
-
-figma.ui.onmessage = async (msg) => {
-  if (msg.type === "init") {
-    figma.ui.postMessage({ type: "context", fileName: figma.root.name });
-  } else if (msg.type === "sync") {
+// Two entry points:
+//   - figma.command === "sync"   → relaunch button click (auto-sync, no UI, close)
+//   - figma.command === ""       → menu click (show UI, wait for button)
+if (figma.command === "sync") {
+  (async () => {
     try {
       const result = await sync();
-      figma.ui.postMessage({ type: "done", message: result });
+      figma.notify(result, { timeout: 4000 });
     } catch (e) {
-      console.error(e);
-      figma.ui.postMessage({ type: "error", message: String(e.message || e) });
+      figma.notify("Sync failed: " + (e.message || e), { error: true, timeout: 6000 });
     }
-  } else if (msg.type === "close") {
     figma.closePlugin();
-  }
-};
+  })();
+} else {
+  figma.showUI(__html__, { width: 400, height: 280 });
+  figma.ui.onmessage = async (msg) => {
+    if (msg.type === "init") {
+      figma.ui.postMessage({ type: "context", fileName: figma.root.name });
+    } else if (msg.type === "sync") {
+      try {
+        const result = await sync();
+        figma.ui.postMessage({ type: "done", message: result });
+      } catch (e) {
+        console.error(e);
+        figma.ui.postMessage({ type: "error", message: String(e.message || e) });
+      }
+    } else if (msg.type === "close") {
+      figma.closePlugin();
+    }
+  };
+}
 
 async function sync() {
   const fileName = figma.root.name;
@@ -127,10 +141,22 @@ async function sync() {
 
   txt(readme_data.footer, 12, "Regular", { r: 0.45, g: 0.45, b: 0.45 });
 
+  // Register a relaunch button so designers see "Sync README from registry"
+  // right on the README page when the file opens, no menu navigation needed.
+  readme.setRelaunchData({
+    sync: "Refresh from the kiub-figma-index registry",
+  });
+
+  // Persist sync state where the staleness watcher (cron) reads it via
+  // /v1/files/:key?plugin_data=shared. The watcher compares content_hash
+  // (from generated/manifest.json on disk) against the hash stored here.
+  // Hash mismatch → README is stale → Slack DM Francis.
   figma.root.setSharedPluginData("kiub_index", "last_sync", JSON.stringify({
     at: new Date().toISOString(),
+    content_hash: entry.content_hash,
     source: "kiub-readme-sync-plugin",
     file_name: fileName,
+    pages_synced: readme_data.sections.reduce((n, s) => n + s.items.length, 0),
   }));
 
   return `Synced "${fileName}" — ${readme_data.sections.reduce((n, s) => n + s.items.length, 0)} pages described.`;
